@@ -30,10 +30,13 @@ export default defineConfig(({ command }) => {
         symbolId: "icon-[dir]-[name]",
       }),
       AutoImport({
+        dts: "src/types/auto-imports.d.ts",
         imports: ["vue-router", "vue", "pinia"],
         resolvers: [ElementPlusResolver()],
       }),
       Components({
+        dts: "src/types/components.d.ts",
+        dirs: ["src/components"],
         resolvers: [ElementPlusResolver()],
       }),
     ],

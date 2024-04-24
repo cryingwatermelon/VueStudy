@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue'
-import { reactive } from 'vue';
+
 // 引入用户相关
 import useUserStore from '@/store/modules/user';
 
-let loading=ref(false);
-let $router = useRouter();
-let useStore = useUserStore()
-let loginForm = reactive({ username: 'admin', password: '111111' })
+const loading = ref(false);
+const $router = useRouter();
+const useStore = useUserStore()
+const loginForm = reactive({ username: 'admin', password: '111111' })
+
 const login = async () => {
-    loading.value=true;
+    loading.value = true;
     // console.log(1111)
     //通知仓库发登录请求
     //请求成功 跳转到首页
@@ -22,10 +23,10 @@ const login = async () => {
             type: 'success',
             message: 'success'
         })
-        loading.value=false;
-        
+        loading.value = false;
+
     } catch (error) {
-        loading.value=false;
+        loading.value = false;
         ElNotification({
             type: 'error',
             message: (error as Error).message
@@ -50,8 +51,8 @@ const login = async () => {
                             <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password"
                                 show-password></el-input>
                         </el-form-item>
-                        <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">登录</el-button>
-
+                        <el-button :loading="loading" class="login_btn" type="primary" size="default"
+                            @click="login">登录</el-button>
                     </el-form>
                 </el-form>
             </el-col>
@@ -65,29 +66,30 @@ const login = async () => {
     height: 100vh; //viewport height
     background: url('@/assets/images/background.png') no-repeat;
     background-size: cover;
+
+    .login_form {
+        position: relative;
+        width: 80%;
+        top: 30vh;
+        background: url('@/assets/images/login_form.png') no-repeat;
+        background-size: cover;
+        padding: 40px;
+    
+        h1 {
+            color: white;
+            font-size: 40px;
+        }
+    
+        h2 {
+            color: white;
+            font-size: 20px;
+            margin: 20px 0px;
+        }
+    
+        .login_btn {
+            width: 100%;
+        }
+    }
 }
 
-.login_form {
-    position: relative;
-    width: 80%;
-    top: 30vh;
-    background: url('@/assets/images/login_form.png') no-repeat;
-    background-size: cover;
-    padding: 40px;
-
-    h1 {
-        color: white;
-        font-size: 40px;
-    }
-
-    h2 {
-        color: white;
-        font-size: 20px;
-        margin: 20px 0px;
-    }
-
-    .login_btn {
-        width: 100%;
-    }
-}
 </style>

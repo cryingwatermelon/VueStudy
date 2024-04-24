@@ -4,16 +4,15 @@ export interface LoginForm {
     password: string
 }
 
-interface dataType {
-    token: string
-}
-
 // login interface return type
 
 export interface LoginResponseData {
-    code: number,
-    data: dataType
+    code: number
+    data: string
+    message:string
+    ok:boolean
 }
+
 interface UserInfo {
     userID: string,
     avatar: string,
