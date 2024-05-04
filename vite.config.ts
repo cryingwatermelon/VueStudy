@@ -6,6 +6,7 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { viteMockServe } from "vite-plugin-mock";
+import IconsResolver from "unplugin-icons/resolver";
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   return {
@@ -32,17 +33,29 @@ export default defineConfig(({ command }) => {
       AutoImport({
         dts: "src/types/auto-imports.d.ts",
         imports: ["vue-router", "vue", "pinia"],
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: "Icon",
+          }),
+        ],
       }),
       Components({
         dts: "src/types/components.d.ts",
-        dirs: ["src/components"],
-        resolvers: [ElementPlusResolver()],
+        // dirs: ["src/components"],
+        resolvers: [
+          ElementPlusResolver(),
+          // Auto register icon components
+          // 自动注册图标组件
+          IconsResolver({
+            enabledCollections: ["ep"],
+          }),
+        ],
       }),
     ],
     resolve: {
       alias: {
-        "@": path.resolve("./src"), // 相对路径别名配置，使用 @ 代替 src
+        "@": path.resolve(__dirname, "./src"), // 相对路径别名配置，使用 @ 代替 src
       },
     },
   };

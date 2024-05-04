@@ -1,12 +1,13 @@
 // import { createApp } from 'vue'
 // import './style.css'
-import 'virtual:svg-icons-register'
-import '@/styles/index.scss'
-import App from './App.vue'
-import router from './router'
-import pinia from './store'
+import "virtual:svg-icons-register";
+import "@/styles/index.scss";
+import App from "./App.vue";
+import router from "./router";
+import pinia from "./store";
+import MyMenu from "@/components/MyMenu/index.vue";
 
-const app = createApp(App)
+const app = createApp(App);
 // import SvgIcon from '@/components/SvgIcon/index.vue'
 // app.component('SvgIcon',SvgIcon);
 
@@ -21,6 +22,8 @@ const app = createApp(App)
 //     }
 // })
 // console.log(import.meta.env)
+
+app.component("MyMenu", MyMenu);
 app.use(pinia);
 app.use(router);
-app.mount('#app')
+app.mount("#app");

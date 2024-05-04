@@ -15,10 +15,11 @@ request.interceptors.request.use((config) => {
   // if (localStorage.getItem("TOKEN"))
   //   config.headers["Token"] = localStorage.getItem("TOKEN");
 
-  const {token} = useUserStore()
-  if (token) 
-    config.headers["Token"] = token
-  console.log(config)
+  // let userStore = useUserStore();
+  // console.log(userStore.token);
+  const { token } = useUserStore();
+  if (token) config.headers["Token"] = token;
+  // console.log(config);
   return config;
 });
 

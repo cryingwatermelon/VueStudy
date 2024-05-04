@@ -1,2 +1,14 @@
 //给项目提供scss全局变量
-$basecolor:green;
+$basecolor: green;
+// 主页面左侧菜单宽度变量
+$base-menu-width: 260px;
+//全部折叠之后的宽度
+$base-menu-collapse-width: 60px;
+//左侧菜单背景颜色
+$base-menu-background: #001529;
+//顶部导航高度
+$base-tabber-height: 50px;
+//左侧菜单logo高度设置
+$base-menu-logo-height: 20px;
+//左侧菜单logo右侧文字大小
+$base-menu-tiitle-fontsize: 20px;

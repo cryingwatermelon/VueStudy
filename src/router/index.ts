@@ -1,9 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { constantRoute } from "./routes";
+import { constantRoute, layoutRoute } from "./routes";
+
+const routes = [...constantRoute, ...layoutRoute];
 
 let router = createRouter({
   history: createWebHashHistory(),
-  routes: constantRoute,
+  routes,
   scrollBehavior() {
     return {
       left: 0,
