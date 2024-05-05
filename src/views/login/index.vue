@@ -11,6 +11,7 @@ const useStore = useUserStore();
 const loginForm = reactive({ username: "admin", password: "111111" });
 
 import type { FormRules } from "element-plus";
+import router from "@/router";
 
 interface RuleForm {
   username: string;
@@ -26,7 +27,15 @@ const login = async () => {
   try {
     //保证登录成功
     await useStore.userLogin(loginForm);
-    $router.push("/");
+    // console.log(router.currentRoute.value.query.redirect);
+    const target = router.currentRoute.value.query.redirect;
+    // if (target) {
+    //   $router.push(target);
+    // } else {
+    //   $router.push("/");
+    // }
+
+    router.push(typeof target === "string" ? target : "/");
     ElNotification({
       type: "success",
       message: "欢迎回来",

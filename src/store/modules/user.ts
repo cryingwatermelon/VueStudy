@@ -37,14 +37,19 @@ const useUserStore = defineStore(
     async function getUserInfo() {
       //获取用户信息进行存储
       const result = await reqUserInfo();
-      console.log(result);
+      // console.log(result);
 
       if (result.code == 200) {
         Object.assign(userInfo, result.data);
-        console.log(userInfo);
+        // console.log(userInfo);
       } else {
         return Promise.reject(new Error(result.message));
       }
+    }
+    function userLogout() {
+      userInfo.name = "";
+      userInfo.avatar = "";
+      token.value = "";
     }
 
     return {
@@ -52,11 +57,12 @@ const useUserStore = defineStore(
       userLogin,
       userInfo,
       getUserInfo,
+      userLogout,
     };
   },
   {
     persist: {
-      paths: ["token"],
+      paths: ["token", "userInfo"],
     },
   }
 );

@@ -26,4 +26,7 @@ const app = createApp(App);
 app.component("MyMenu", MyMenu);
 app.use(pinia);
 app.use(router);
+//引入路由鉴权文件
+import "./permission";
+
 app.mount("#app");

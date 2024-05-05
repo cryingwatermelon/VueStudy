@@ -11,7 +11,7 @@ const useLayoutSettingStore = defineStore(
     // const CollapseAll = ref(!!+(localStorage.getItem("CollapseAll") || false));
     const CollapseAll = ref(false);
     const Refresh = ref(false);
-    console.log(CollapseAll.value);
+    // console.log(CollapseAll.value);
 
     const changeIcon = () => {
       CollapseAll.value = !CollapseAll.value;
