@@ -12,10 +12,7 @@ const useUserStore = defineStore(
     const token = ref("");
     const isLogin = computed(() => !!token.value);
 
-    const userInfo = reactive({
-      name: "",
-      avatar: "",
-    });
+    const userInfo = ref({});
 
     async function userLogin(data: LoginForm) {
       // console.log();
@@ -48,9 +45,9 @@ const useUserStore = defineStore(
       }
     }
     function userLogout() {
-      userInfo.name = "";
-      userInfo.avatar = "";
       token.value = "";
+      userInfo.value = {};
+      // localStorage.removeItem("TOKEN");
     }
 
     return {

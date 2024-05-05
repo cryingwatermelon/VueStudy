@@ -7,11 +7,11 @@ import { getTime } from "@/utils/time";
 
 const loading = ref(false);
 const $router = useRouter();
+const $route = useRoute();
 const useStore = useUserStore();
 const loginForm = reactive({ username: "admin", password: "111111" });
 
 import type { FormRules } from "element-plus";
-import router from "@/router";
 
 interface RuleForm {
   username: string;
@@ -27,15 +27,16 @@ const login = async () => {
   try {
     //保证登录成功
     await useStore.userLogin(loginForm);
-    // console.log(router.currentRoute.value.query.redirect);
-    const target = router.currentRoute.value.query.redirect;
+    // console.log("route", $route.query?.redirect);
+    const target = ($route.query?.redirect as string) || "/";
+    // console.log("target", target);
     // if (target) {
     //   $router.push(target);
     // } else {
     //   $router.push("/");
     // }
 
-    router.push(typeof target === "string" ? target : "/");
+    $router.replace(target);
     ElNotification({
       type: "success",
       message: "欢迎回来",
