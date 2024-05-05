@@ -149,6 +149,7 @@ export const constantRoute: RouteRecordRaw[] = [
     meta: {
       title: "登录",
       hidden: true,
+      public: true,
       icon: Promotion,
     },
   },

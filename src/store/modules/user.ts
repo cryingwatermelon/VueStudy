@@ -10,6 +10,7 @@ const useUserStore = defineStore(
   () => {
     // const token = ref(localStorage.getItem("TOKEN") || "");
     const token = ref("");
+    const isLogin = computed(() => !!token.value);
 
     const userInfo = reactive({
       name: "",
@@ -54,6 +55,7 @@ const useUserStore = defineStore(
 
     return {
       token,
+      isLogin,
       userLogin,
       userInfo,
       getUserInfo,

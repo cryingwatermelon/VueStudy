@@ -7,6 +7,8 @@ import router from "./router";
 import pinia from "./store";
 import MyMenu from "@/components/MyMenu/index.vue";
 
+import "@/router/permission";
+
 const app = createApp(App);
 // import SvgIcon from '@/components/SvgIcon/index.vue'
 // app.component('SvgIcon',SvgIcon);
@@ -27,6 +29,6 @@ app.component("MyMenu", MyMenu);
 app.use(pinia);
 app.use(router);
 //引入路由鉴权文件
-import "./permission";
+// import "./permission";
 
 app.mount("#app");

@@ -3,7 +3,7 @@ import { constantRoute, layoutRoute } from "./routes";
 
 const routes = [...constantRoute, ...layoutRoute];
 
-let router = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior() {
