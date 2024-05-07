@@ -12,7 +12,7 @@ import useUserStore from "@/store/modules/user";
 const LayoutSettingStore = useLayoutSettingStore();
 const { userInfo, userLogout } = useUserStore();
 const $router = useRouter();
-const $route = useRoute();
+// const $route = useRoute();
 const updateRefresh = () => {
   LayoutSettingStore.Refresh = !LayoutSettingStore.Refresh;
 };

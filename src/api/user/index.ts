@@ -5,6 +5,7 @@ import type { LoginForm, LoginResponseData, UserResponseData } from "./type";
 enum API {
   LOGIN_URL = "/admin/acl/index/login",
   USERINFO_URL = "/admin/acl/index/info",
+  LOGOUT_URL = "/admin/acl/index/logout",
 }
 
 //暴露请求函数
@@ -18,3 +19,5 @@ export const reqlogin = (data: LoginForm) =>
 //userinfo interface
 export const reqUserInfo = () =>
   request.get<any, UserResponseData>(API.USERINFO_URL);
+
+export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL);

@@ -119,6 +119,7 @@ const aclRoute: RouteRecordRaw = {
 export const menuRoute: RouteRecordRaw[] = [
   {
     path: "home",
+    name: "Home",
     component: () => import("@/views/home/index.vue"),
     meta: {
       title: "首页",

@@ -3,7 +3,12 @@ import { defineStore } from "pinia";
 
 //引入接口
 import { reqlogin, reqUserInfo } from "@/api/user";
-import type { LoginForm } from "@/api/user/type";
+
+import type {
+  LoginForm,
+  // LoginResponseData,
+  // userInfoReponseData,
+} from "@/api/user/type";
 
 const useUserStore = defineStore(
   "User",
@@ -12,11 +17,14 @@ const useUserStore = defineStore(
     const token = ref("");
     const isLogin = computed(() => !!token.value);
 
-    const userInfo = ref({});
+    const userInfo = reactive({
+      name: "",
+      avatar: "",
+    });
 
     async function userLogin(data: LoginForm) {
       // console.log();
-      let result = await reqlogin(data);
+      const result = await reqlogin(data);
 
       // console.log(result);
       //登录成功200 登录失败201 要存储token
@@ -46,7 +54,8 @@ const useUserStore = defineStore(
     }
     function userLogout() {
       token.value = "";
-      userInfo.value = {};
+      // userInfo = {};
+      Object.assign(userInfo, "");
       // localStorage.removeItem("TOKEN");
     }
 

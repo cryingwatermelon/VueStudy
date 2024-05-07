@@ -34,3 +34,13 @@ export interface UserResponseData {
   message: string;
   ok: boolean;
 }
+
+export interface userInfoReponseData extends UserResponseData {
+  data: {
+    routes: string[];
+    buttons: string[];
+    roles: string[];
+    name: string;
+    avatar: string;
+  };
+}
