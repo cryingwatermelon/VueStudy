@@ -5,7 +5,7 @@ import { ElMessage } from "element-plus";
 
 //创建axios实例
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API, //这里可能有点问题
+  baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 5000,
 });
 
@@ -26,7 +26,12 @@ request.interceptors.request.use((config) => {
 //响应拦截器
 request.interceptors.response.use(
   (response) => {
-    return response.data;
+    // console.log(response);
+    if (response.data.code === 200) {
+      return response.data;
+    } else {
+      alert("error"); //业务错误，抛回去给调用者处理
+    }
   },
   (error) => {
     //处理网络错误
