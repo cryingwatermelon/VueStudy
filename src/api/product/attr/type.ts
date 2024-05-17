@@ -20,6 +20,7 @@ export interface AttrValue {
   id?: number
   valueName: string
   attrID?: number
+  flag?: boolean
 }
 // 存储每一个属性值的数组类型
 export type AttrValueList = AttrValue[]

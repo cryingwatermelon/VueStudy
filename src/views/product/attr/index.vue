@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { Delete, Edit, Plus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { handleError } from 'vue'
 
-import type { Attr, AttrReponseData } from '@/api/product/attr/type'
+import type { Attr, AttrReponseData, AttrValue } from '@/api/product/attr/type'
 
 import { reqAddOrUpdateAttr, reqAttr } from '@/api/product/attr'
 import useCategoryStore from '@/store/modules/category'
 
 defineOptions({ name: 'Attr' })
 const categoryStore = useCategoryStore()
+// 添加属性->属性值编辑模式与查看模式的切换
+// const flag = ref<boolean>(true)
 // 存储已有的属性与属性值
 const attrArr = ref<Attr[]>([])
 const attrParams = reactive<Attr>({
@@ -36,6 +39,8 @@ async function getAttr() {
   if (result.code === 200)
     attrArr.value = result.data
 }
+// 准备一个数组：将来存储对应的组件实例
+const inputArr = ref<any>([])
 // 控制场景切换 0显示table 1显示添加修改
 const scene = ref<number>(0)
 function addAttr() {
@@ -60,6 +65,10 @@ function addAttrValue() {
     valueName: '',
     flag: true,
   })
+  // 获取最后的el-input组件
+  nextTick(() => {
+    inputArr.value[attrParams.attrValueList.length - 1].focus()
+  })
 }
 async function save() {
   const result = await reqAddOrUpdateAttr(attrParams)
@@ -79,6 +88,37 @@ async function save() {
       message: attrParams.id ? '修改失败' : '添加失败',
     })
   }
+}
+function toLook(row: AttrValue, $index: number) {
+  // 非法情况判断
+  if (row.valueName.trim() === '') {
+    attrParams.attrValueList.splice($index, 1)
+    ElMessage({
+      type: 'error',
+      message: '属性值不能为空',
+    })
+  }
+  // 属性值去重
+  const repeat = attrParams.attrValueList.find((item) => {
+    if (item !== row)
+      return item.valueName === row.valueName
+    else return false
+  })
+  if (repeat) {
+    attrParams.attrValueList.splice($index, 1)
+    ElMessage({
+      type: 'error',
+      message: '属性值不能重复',
+    })
+  }
+
+  row.flag = false
+}
+function toEdit(row: AttrValue, $index: any) {
+  row.flag = true
+  nextTick(() => {
+    inputArr.value[$index].focus()
+  })
 }
 </script>
 
@@ -121,14 +161,24 @@ async function save() {
         <el-table border style="margin: 10px,0px;" :data="attrParams.attrValueList">
           <el-table-column label="序号" width="80px" type="index" align="center" />
           <el-table-column label="属性值名称" align="center">
-            <template #default="{ row }">
+            <template #default="{ row, $index }">
               <el-input
+                v-if="row.flag"
+                :ref="(vc:any) => inputArr[$index] = vc"
                 v-model="row.valueName"
-                size="small" placeholder="请你输入属性值名称"
+                size="small"
+                placeholder="请你输入属性值名称" @blur="toLook(row, $index)"
               />
+              <div v-else @click="toEdit(row, $index)">
+                {{ row.valueName }}
+              </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" />
+          <el-table-column label="属性值操作" align="center">
+            <template #default="$index">
+              <el-button type="danger" size="small" :icon="Delete" @click="attrParams.attrValueList.splice($index, 1)" />
+            </template>
+          </el-table-column>
         </el-table>
         <el-button type="success" size="default" @click="save">
           保存
