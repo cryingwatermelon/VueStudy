@@ -5,7 +5,7 @@ import { handleError } from 'vue'
 
 import type { Attr, AttrReponseData, AttrValue } from '@/api/product/attr/type'
 
-import { reqAddOrUpdateAttr, reqAttr } from '@/api/product/attr'
+import { reqAddOrUpdateAttr, reqAttr, reqRemoveAttr } from '@/api/product/attr'
 import useCategoryStore from '@/store/modules/category'
 
 defineOptions({ name: 'Attr' })
@@ -54,8 +54,11 @@ function addAttr() {
   scene.value = 1
 }
 
-function updateAttr() {
+function updateAttr(row: Attr) {
   scene.value = 1
+  // 已有的属性对象赋值给parameters
+  Object.assign(attrParams, JSON.parse(JSON.stringify(row)))
+  // 数组里的赋值是浅拷贝
 }
 function cancel() {
   scene.value = 0
@@ -120,6 +123,27 @@ function toEdit(row: AttrValue, $index: any) {
     inputArr.value[$index].focus()
   })
 }
+
+async function deleteAttr(id: number) {
+  const result = await reqRemoveAttr(id)
+  if (result.code === 200) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    getAttr()
+  }
+  else {
+    ElMessage({
+      type: 'error',
+      message: '删除失败',
+    })
+  }
+}
+// 组件路由销毁时清空
+onBeforeUnmount(() => {
+  categoryStore.$reset()
+})
 </script>
 
 <template>
@@ -141,8 +165,14 @@ function toEdit(row: AttrValue, $index: any) {
             </template>
           </el-table-column>
           <el-table-column label="操作" width="120px">
-            <el-button type="primary" size="small" :icon="Edit" @click="updateAttr" />
-            <el-button type="danger" size="small" :icon="Delete" />
+            <template #default="{ row }">
+              <el-button type="primary" size="small" :icon="Edit" @click="updateAttr(row)" />
+              <el-popconfirm :title="`你确定要删除 ${row.attrName} 吗？`" width="200px" @confirm="deleteAttr(row.id)">
+                <template #reference>
+                  <el-button type="danger" size="small" :icon="Delete" />
+                </template>
+              </el-popconfirm>
+            </template>
           </el-table-column>
         </el-table>
       </div>
