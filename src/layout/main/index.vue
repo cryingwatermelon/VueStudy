@@ -1,18 +1,19 @@
 <script lang="ts" setup>
-import useLayoutSettingStore from "@/store/modules/setting";
-const LayoutSettingStore = useLayoutSettingStore();
-//控制当前组件是否需要销毁重建
-let flag = ref(true);
-//监听refresh时候发生变化
+import useLayoutSettingStore from '@/store/modules/setting'
+
+const LayoutSettingStore = useLayoutSettingStore()
+// 控制当前组件是否需要销毁重建
+const flag = ref(true)
+// 监听refresh时候发生变化
 watch(
   () => LayoutSettingStore.Refresh,
   () => {
-    flag.value = false;
+    flag.value = false
     nextTick(() => {
-      flag.value = true;
-    });
-  }
-);
+      flag.value = true
+    })
+  },
+)
 </script>
 
 <template>

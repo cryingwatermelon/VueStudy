@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import Logo from "./logo/index.vue";
-import Tabbar from "./tabbar/index.vue";
-import useLayoutSettingStore from "@/store/modules/setting";
-import Main from "./main/index.vue";
-import useUserStore from "@/store/modules/user";
+import Logo from './logo/index.vue'
+import Main from './main/index.vue'
+import Tabbar from './tabbar/index.vue'
+
+import { menuRoute } from '@/router/routes'
+import useLayoutSettingStore from '@/store/modules/setting'
+import useUserStore from '@/store/modules/user'
 // 引入常量路由
-import { menuRoute } from "@/router/routes";
-const { CollapseAll } = storeToRefs(useLayoutSettingStore());
 
 // 最新的方法
-defineOptions({ name: "Layout" });
-const { getUserInfo } = useUserStore();
+defineOptions({ name: 'Layout' })
 
-//目前首页挂载完毕就发请求
+const { CollapseAll } = storeToRefs(useLayoutSettingStore())
+
+const { getUserInfo } = useUserStore()
+
+// 目前首页挂载完毕就发请求
 onMounted(() => {
-  getUserInfo();
-});
+  getUserInfo()
+})
 </script>
 
 <!-- 课里的方法 -->
@@ -50,8 +53,8 @@ export default {
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider" :class="{ CollapseAll: CollapseAll }">
-      <Logo></Logo>
+    <div class="layout_slider" :class="{ CollapseAll }">
+      <Logo />
       <!-- 展示菜单 -->
       <!-- 滚动组件：菜单 -->
       <el-menu
@@ -61,11 +64,11 @@ export default {
         mode="vertical"
       >
         <!-- 根据路由动态生成菜单 -->
-        <MyMenu :menuList="menuRoute"></MyMenu>
+        <MyMenu :menu-list="menuRoute" />
       </el-menu>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabber" :class="{ CollapseAll: CollapseAll }">
+    <div class="layout_tabber" :class="{ CollapseAll }">
       <!-- <el-radio-group
         v-model="LayoutSettingStore.CollapseAll"
         style="margin-bottom: 20px"
@@ -76,7 +79,7 @@ export default {
       <Tabbar />
     </div>
     <!-- 内容展示区 -->
-    <div class="layout_main" :class="{ CollapseAll: CollapseAll }">
+    <div class="layout_main" :class="{ CollapseAll }">
       <!-- <RouterView v-slot="{ Component, route }">
         <Transition name="fade-transform" mode="out-in">
           <component :is="Component" :key="route" />

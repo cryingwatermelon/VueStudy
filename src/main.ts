@@ -1,19 +1,20 @@
 // import { createApp } from 'vue'
 // import './style.css'
-import "virtual:svg-icons-register";
-import "@/styles/index.scss";
-import App from "./App.vue";
-import router from "./router";
-import pinia from "./store";
-import MyMenu from "@/components/MyMenu/index.vue";
+import 'virtual:svg-icons-register'
+import '@/styles/index.scss'
+import App from './App.vue'
+import router from './router'
+import pinia from './store'
 
-import "@/router/permission";
+import MyMenu from '@/components/MyMenu/index.vue'
 
-const app = createApp(App);
+import '@/router/permission'
+
+const app = createApp(App)
 // import SvgIcon from '@/components/SvgIcon/index.vue'
 // app.component('SvgIcon',SvgIcon);
 
-//test 假接口
+// test 假接口
 // import axios from 'axios'
 // axios({
 //     url:'/api/user/login',
@@ -25,10 +26,10 @@ const app = createApp(App);
 // })
 // console.log(import.meta.env)
 
-app.component("MyMenu", MyMenu);
-app.use(pinia);
-app.use(router);
-//引入路由鉴权文件
+app.component('MyMenu', MyMenu)
+app.use(pinia)
+app.use(router)
+// 引入路由鉴权文件
 // import "./permission";
 
-app.mount("#app");
+app.mount('#app')
