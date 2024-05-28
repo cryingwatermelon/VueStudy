@@ -4,41 +4,36 @@ import * as echarts from 'echarts'
 const charts = ref()
 onMounted(() => {
   const mychart = echarts.init(charts.value)
-  mychart.setOption({
-    title: {
-      text: '景区排行',
-      link: 'http://www.baidu.com',
-      left: '50%',
-      textStyle: {
-        color: 'yellowgreen',
-        fontSize: 20,
-      },
-      subtext: '各大景区排行',
-      subtextStyle: {
-        color: 'yellowgreen',
-        fontSize: 16,
-      },
-    },
+  const option = {
+    title:
+    { text: '散点图', left: '40%', textStyle: {
+      color: 'white',
+    } },
     xAxis: {
       type: 'category',
+      show: true,
     },
-    yAxis: {},
+    yAxis: {
+
+      show: false,
+    },
     grid: {
       left: 20,
+      right: 0,
+      top: 20,
       bottom: 20,
-      right: 20,
     },
-    series: [{
-      type: 'bar',
-      data: [10, 20, 30, 40, 50, 60, 70],
-      // 柱状图的文本标签
+    series: {
+      type: 'scatter',
+      data: [33, 44, 55, 8, 88, 67, 87, 9, 10, 100, 12, 21, 34, 54, 56, 78, 93, 3, 2, 1],
+      symbol: 'diamond',
+      symbolSize: 16,
       label: {
         show: true,
-        position: 'insideTop',
-        color: 'yellowgreen',
+        position: 'top',
+        color: 'red',
       },
-      showBackground: true,
-      backgroundStyle: {
+      itemStyle: {
         color: {
           type: 'linear',
           x: 0,
@@ -47,7 +42,7 @@ onMounted(() => {
           y2: 1,
           colorStops: [{
             offset: 0,
-            color: 'white',
+            color: 'red',
           }, {
             offset: 1,
             color: 'blue',
@@ -55,35 +50,28 @@ onMounted(() => {
           global: false,
         },
       },
-      itemStyle: {
-        borderRadius: [10, 10, 0, 0],
-        color(data: any) {
-          const arr = ['red', 'orange', 'yellow', 'green', 'purple', 'hotpink', 'skyblue']
-          return arr[data.dateIndex]
-        },
-      },
-
-    }],
-    tooltip: {
-      backgroundColor: 'rgba(50,50,50,0.7)',
     },
-  })
+
+  }
+
+  mychart.setOption(option)
 })
 </script>
 
 <template>
-  <div class="box6">
+  <div class="box7">
     <div class="title">
-      <p>热门景区</p>
+      <p>
+        年度游客量对比
+      </p>
       <img src="../../images/dataScreen-title.png" alt="">
     </div>
-    <!-- 图形图标的容器 -->
     <div ref="charts" class="charts" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.box6{
+.box7{
   width: 100%;
   height: 100%;
   background: url(../../images/dataScreen-main-cb.png)no-repeat;

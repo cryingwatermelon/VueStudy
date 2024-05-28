@@ -26,7 +26,7 @@ export function reqC3(category2ID: number | string) {
 }
 export function reqAttr(category1ID: string | number, category2ID: string | number, category3ID: string | number) {
   return request.get<any, AttrReponseData>(
-    `${API.ATTR_URL}${category1ID}/${category2ID} /${category3ID}`,
+    `${API.ATTR_URL}${category1ID}/${category2ID}/${category3ID}`,
   )
 }
 export const reqAddOrUpdateAttr = (data: Attr) => request.post<any, any>(API.ADDORUPDATEATTR_URL, data)

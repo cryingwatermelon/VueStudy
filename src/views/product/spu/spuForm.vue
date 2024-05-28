@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { Plus } from '@element-plus/icons-vue'
 
+import type { AllTrademark, HasSaleAttr, SpuData, SpuHasImg, SpuImg, Trademark } from '@/api/product/spu/type'
+
+import { reqAllSaleAttr, reqAllTradeMark, reqSpuHasSaleAttr, reqSpuImageList } from '@/api/product/spu'
+
 defineOptions({ name: 'SPUForm' })
 
 const $emit = defineEmits(['changeScene'])
@@ -8,6 +12,35 @@ const $emit = defineEmits(['changeScene'])
 function cancel() {
   $emit('changeScene', 0)
 }
+const AllTradeMark = ref< Trademark[]>([])
+const imgList = ref<SpuImg[]>([])
+// const allSaleAttr = ref<HasSaleAttr[]>([])
+// const SpuParameter = ref<SpuData>({
+
+// })
+// 测试通信
+async function initHasSpuData(spu: SpuData) {
+  // 存储已有的SPU对象
+  // SpuParameter.value = spu
+  // 获取全部的品牌数据
+  const result: AllTrademark = await reqAllTradeMark()
+  // console.log(result)
+  // 获取某一个品牌下全部售卖商品的图片
+  const spuImageResult: SpuHasImg = await reqSpuImageList(spu.id as number)
+  console.log(spuImageResult)
+  const spuHasSaleAttr = await reqSpuHasSaleAttr(spu.id as number)
+  // 获取整个项目全部的销售属性(eg:颜色，版本，尺码)
+  const spuAllSaleAttr = await reqAllSaleAttr()
+  // 存储所有拿到的数据
+  AllTradeMark.value = result.data
+  imgList.value = spuImageResult.data.map((item) => {
+    return {
+      name: item.imgName,
+      url: item.imgUrl,
+    }
+  })
+}
+defineExpose({ initHasSpuData })
 </script>
 
 <template>
@@ -29,7 +62,6 @@ function cancel() {
         </el-form-item>
         <el-form-item label="SPU图片">
           <el-upload
-
             action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
             list-type="picture-card"
           >

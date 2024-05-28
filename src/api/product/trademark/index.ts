@@ -26,7 +26,7 @@ export function reqAddOrUpdateTrademark(data: TradeMark) {
   }
   else {
     // 之前没有id说明是新增
-    return request.put<any, any>(API.ADDTRADEMARK_URL, data)
+    return request.post<any, any>(API.ADDTRADEMARK_URL, data)
   }
 }
 

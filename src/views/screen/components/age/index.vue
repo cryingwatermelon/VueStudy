@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as echarts from 'echarts'
 
-import type { ECharts } from 'echarts'
+// import type { ECharts } from 'echarts'
 
 const charts = ref()
 onMounted(() => {

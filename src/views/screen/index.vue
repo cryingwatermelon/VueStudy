@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import Age from './components/age/index.vue'
+import Couter from './components/couter/index.vue'
 import Line from './components/line/index.vue'
 import Map from './components/map/index.vue'
 import Rank from './components/rank/index.vue'
 import Sex from './components/sex/index.vue'
 import Top from './components/top/index.vue'
 import Tourist from './components/tourist/index.vue'
+import Year from './components/year/index.vue'
 
 // 获取数据大屏展示内容盒子的DOM元素
 const screen = ref()
@@ -46,6 +48,8 @@ window.onresize = () => {
         </div>
         <div class="right">
           <Rank class="rank" />
+          <Couter class="couter" />
+          <Year class="year" />
         </div>
       </div>
     </div>
@@ -65,6 +69,7 @@ window.onresize = () => {
     top: 50%;
     left:50%;
     transform-origin: left top;
+    // transform: ;
   }
   .top{
     width: 100%;
@@ -107,10 +112,21 @@ window.onresize = () => {
 
     }
     .right{
-      background-color: aqua;
-    .rank{
-      background-color: red;
-    }
+     flex:1;
+     display: flex;
+     flex-direction: column;
+     margin-left: 40px;
+     .rank{
+      flex:1.5;
+     }
+     .year{
+      flex:1;
+      // background-color: aqua;
+     }
+     .couter{
+      flex:1;
+      // background-color: bisque;
+     }
     }
   }
 
