@@ -1,4 +1,4 @@
-import type { AllTrademark, HasSaleAttrResponseData, HasSpuResponseData, SaleAttrResponseData, SpuHasImg } from './type'
+import type { AllTrademark, HasSaleAttrResponseData, HasSpuResponseData, SaleAttrResponseData, SkuData, SkuInfoData, SpuData, SpuHasImg } from './type'
 
 import request from '@/utils/request'
 
@@ -16,8 +16,13 @@ enum API {
   // 追加一个新的SPU
   ADDSPU_URL = '/admin/product/saveSpuInfo',
   // 更新已有的SPU
-  UPDATE_URL = '/admin/product/updateSpuInfo',
+  UPDATESPU_URL = '/admin/product/updateSpuInfo',
+  // 追加一个新的SKU
+  ADDSKU_URL = '/admin/product/saveSkuInfo',
   // 查看某个SPU下全部售卖的商品
+  SKUINFO_URL = '/admin/product/findBySpuId/',
+  // 删除已有SPU
+  REMOVESPU_URL = '/admin/product/deleteSpu/',
 
 }
 
@@ -32,10 +37,20 @@ export const reqSpuHasSaleAttr = (spuId: number) => request.get<any, SaleAttrRes
 // 获取所有的销售属性
 export const reqAllSaleAttr = () => request.get<any, HasSaleAttrResponseData>(API.ALLSALEATTR_URL)
 // 更新已有的SPU
-export function reqAddOrUpdateSpu(data: any) {
+export function reqAddOrUpdateSpu(data: SpuData) {
   if (data.id)
-    return request.post<any, any>(API.UPDATE_URL, data)
+    return request.post<any, any>(API.UPDATESPU_URL, data)
 
-  else
-    request.post<any, any>(API.ADDSPU_URL, data)
+  return request.post<any, any>(API.ADDSPU_URL, data)
+}
+export function reqAddSku(data: SkuData) {
+  return request.post<any, any>(API.ADDSKU_URL, data)
+}
+
+export function reqSkuList(spuId: number | string): Promise<SkuInfoData> {
+  return request.get(API.SKUINFO_URL + spuId)
+}
+
+export function reqRemoveSpu(spuId: number | string) {
+  return request.delete<any, any>(API.REMOVESPU_URL + spuId)
 }

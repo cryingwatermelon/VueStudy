@@ -1,46 +1,46 @@
-//login interface data type
+// login interface data type
 export interface LoginForm {
-  username: string;
-  password: string;
+  username: string
+  password: string
 }
 
 // login interface return type
 
 export interface LoginResponseData {
-  code: number;
-  data: string;
-  message: string;
-  ok: boolean;
+  code: number
+  data: string
+  message: string
+  ok: boolean
 }
 
 interface UserInfo {
-  userID: string;
-  avatar: string;
-  username: string;
-  password: string;
-  desc: string;
-  roles: string[];
-  buttons: string[];
-  routes: string[];
-  token: string;
+  userID: string
+  avatar: string
+  username: string
+  password: string
+  desc: string
+  roles: string[]
+  buttons: string[]
+  routes: string[]
+  token: string
 }
 interface user {
-  checkUser: UserInfo;
+  checkUser: UserInfo
 }
-//定义服务器返回用户信息相关的数据类型
+// 定义服务器返回用户信息相关的数据类型
 export interface UserResponseData {
-  code: number;
-  data: user;
-  message: string;
-  ok: boolean;
+  code: number
+  data: user
+  message: string
+  ok: boolean
 }
 
 export interface userInfoReponseData extends UserResponseData {
   data: {
-    routes: string[];
-    buttons: string[];
-    roles: string[];
-    name: string;
-    avatar: string;
-  };
+    routes: string[]
+    buttons: string[]
+    roles: string[]
+    name: string
+    avatar: string
+  }
 }

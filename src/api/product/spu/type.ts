@@ -94,6 +94,21 @@ export interface HasSaleAttr {
 export interface HasSaleAttrResponseData extends ResponseData {
   data: HasSaleAttr[]
 }
+export interface SkuData {
+  category3ID: string | number
+  spuID: string | number
+  tmID: string | number
+  skuName: string
+  price: string | number
+  wight: string | number
+  skuDesc: string | number
+  skuAttrValueList?: Attr[]
+  skuSaleAttrValueList?: SaleAttr[]
+  skuDefaultImg: string
+}
+export interface SkuInfoData extends ResponseData {
+  data: SkuData[]
+}
 
 // const test = {
 //   'name': 'zhangsan',
