@@ -4,7 +4,7 @@ import { Avatar, Delete, Edit, Plus } from '@element-plus/icons-vue'
 import type { MenuList, Records, RoleData, RoleResponseData } from '@/api/acl/role/type'
 import type { DrawerProps } from 'element-plus'
 
-import { reqALLMenuList, reqAddOrUpdateRole, reqAllRoleList, reqSetPermission } from '@/api/acl/role'
+import { reqALLMenuList, reqAddOrUpdateRole, reqAllRoleList, reqRemoveRole, reqSetPermission } from '@/api/acl/role'
 import useLayoutSettingStore from '@/store/modules/setting'
 
 const pageNo = ref(1)
@@ -28,6 +28,7 @@ const rules = {
   roleName: [{ required: true, trigger: 'blur', validator: validatorRoleName }],
 }
 function validatorRoleName(rule: any, value: any, callback: any) {
+  // todo 正则判断
   if (value.trim().length >= 2)
     callback()
   else
@@ -126,13 +127,23 @@ async function handler() {
   const permission = arr.concat(arr2)
   const result: any = await reqSetPermission(roleId as number, permission)
   // console.log(result)
-  if (result.code === 200)
+  if (result.code === 200) {
     ElMessage({ type: 'success', message: '分配权限成功' })
-  drawer.value = false
+    drawer.value = false
+    window.location.reload()
+  }
 }
 const defaultProps = {
   children: 'children',
   label: 'name',
+}
+async function deleteRole(id: number) {
+  const result: any = await reqRemoveRole(id)
+  // console.log(result)
+  if (result.code === 200) {
+    ElMessage({ type: 'success', message: '删除成功' })
+    getHasRole(roleParameter.id ? pageNo.value : 1)
+  }
 }
 </script>
 
@@ -176,9 +187,14 @@ const defaultProps = {
             <el-button type="success" :icon="Edit" size="small" @click="updateRole(row)">
               编辑
             </el-button>
-            <el-button type="danger" :icon="Delete" size="small">
-              删除
-            </el-button>
+
+            <el-popconfirm :title="`你确定删除 ${row.roleName} ?`" width="300px" @confirm="deleteRole(row.id)">
+              <template #reference>
+                <el-button type="danger" :icon="Delete" size="small">
+                  删除
+                </el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>

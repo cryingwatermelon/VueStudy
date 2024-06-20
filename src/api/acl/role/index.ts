@@ -13,7 +13,9 @@ enum API {
   // 获取全部的菜单和权限
   ALLPERMISSION_URL = '/admin/acl/permission/toAssign/',
   // 给选中的用户分配权限
-  SETPRERMISSION_URL = '/admin/acl/role/permission/doAssign/?',
+  SETPRERMISSION_URL = '/admin/acl/permission/doAssign/?',
+  // 删除接口
+  REMOVEROLE_URL = '/admin/acl/role/remove/',
 }
 // 获取全部的角色
 export function reqAllRoleList(page: number, limit: number, roleName: string) {
@@ -33,4 +35,7 @@ export function reqALLMenuList(id: number) {
 //  给职位分配权限
 export function reqSetPermission(roleId: number, permissionId: number) {
   return request.post(`${API.SETPRERMISSION_URL}roleId=${roleId}&permissionId=${permissionId}`)
+}
+export function reqRemoveRole(roleId: number) {
+  return request.delete(API.REMOVEROLE_URL + roleId)
 }

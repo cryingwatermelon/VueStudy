@@ -137,7 +137,7 @@ export default {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabber-height);
-    background-color: aliceblue;
+    // background-color: aliceblue;
     top: $base-tabber-height;
     left: $base-menu-width;
     padding: 20px;

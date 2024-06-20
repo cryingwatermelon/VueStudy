@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Breadcrumb from "./breadcrumb/index.vue";
-import Setting from "./setting/index.vue";
+import Breadcrumb from './breadcrumb/index.vue'
+import Setting from './setting/index.vue'
 // import useLayoutSettingStore from "@/store/modules/setting";
-defineOptions({ name: "Tabbar" });
+defineOptions({ name: 'Tabbar' })
 </script>
 
 <template>
@@ -31,13 +31,13 @@ defineOptions({ name: "Tabbar" });
   // )
   // background-image: linear-gradient(to right, #fff, #cec9c9, #fff);
   // background-color: crimson;
-  background-image: linear-gradient(
-    to left,
-    rgb(255, 255, 255) 25%,
-    rgb(161, 198, 223) 50%,
-    rgb(173, 220, 238) 75%,
-    rgb(255, 255, 255)
-  );
+  // background-image: linear-gradient(
+  //   to left,
+  //   rgb(255, 255, 255) 25%,
+  //   rgb(161, 198, 223) 50%,
+  //   rgb(173, 220, 238) 75%,
+  //   rgb(255, 255, 255)
+  // );
   .tabbar_left {
     display: flex;
     align-items: center;

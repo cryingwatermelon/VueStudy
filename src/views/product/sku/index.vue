@@ -26,7 +26,7 @@ async function getHasSku(pager = 1) {
   }
 }
 // 分页器下拉菜单发生变化时触发
-function handler(pageSizes: number) {
+function handler() {
   getHasSku()
 }
 // 上架或者下架

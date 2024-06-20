@@ -1,27 +1,28 @@
 <script lang="ts" setup>
-import { Expand, Fold, ArrowRight } from "@element-plus/icons-vue";
-import useLayoutSettingStore from "@/store/modules/setting";
+import { ArrowRight, Expand, Fold } from '@element-plus/icons-vue'
 
-const LayoutSettingStore = useLayoutSettingStore();
+import useLayoutSettingStore from '@/store/modules/setting'
+
 // let CollapseAll = ref(false);
 
-defineOptions({ name: "Breadcrumb" });
-
-let $route = useRoute();
+defineOptions({ name: 'Breadcrumb' })
+const LayoutSettingStore = useLayoutSettingStore()
+const $route = useRoute()
 // const Handler = () => {
 //   return $route.matched.filter((item) => item.meta.title);
 // };
 
 const Breadcrumb = computed(() =>
-  $route.matched.filter((item) => item.meta.title)
-);
+  $route.matched.filter(item => item.meta.title),
+)
 </script>
+
 <template>
   <!-- 左侧面包屑 -->
   <!-- 需要动态展示路由 -->
   <el-icon style="margin-right: 10px" @click="LayoutSettingStore.changeIcon">
     <!-- <Expand /> -->
-    <component :is="LayoutSettingStore.CollapseAll ? Fold : Expand"></component>
+    <component :is="LayoutSettingStore.CollapseAll ? Fold : Expand" />
   </el-icon>
   <!-- <el-button @click="Handler">test</el-button> -->
   <!-- <el-breadcrumb separator="/"> -->
@@ -37,7 +38,7 @@ const Breadcrumb = computed(() =>
     >
       <div style="display: flex; align-items: center; gap: 4px">
         <el-icon>
-          <component :is="item.meta.icon"></component>
+          <component :is="item.meta.icon" />
         </el-icon>
         <span>{{ item.meta.title }}</span>
       </div>

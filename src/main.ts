@@ -10,6 +10,8 @@ import MyMenu from '@/components/MyMenu/index.vue'
 
 import '@/router/permission'
 
+import 'element-plus/theme-chalk/dark/css-vars.css'
+
 const app = createApp(App)
 // import SvgIcon from '@/components/SvgIcon/index.vue'
 // app.component('SvgIcon',SvgIcon);
